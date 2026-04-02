@@ -8,8 +8,8 @@ public class Book extends Item{
         editionNumber = 0;
     }
 
-    public Book(String name , String authors, int publicationYear, String editorial, int editionNumber) {
-        super(name, authors, publicationYear);
+    public Book(String name , String authors, int publicationYear, String path, String editorial, int editionNumber) {
+        super(name, authors, publicationYear, path);
         this.editorial = editorial;
         this.editionNumber = editionNumber;
     }
@@ -33,6 +33,9 @@ public class Book extends Item{
         sb.append("\n");
         sb.append("Publication year: ");
         sb.append(getPublicationYear());
+        sb.append("\n");
+        sb.append("Path: ");
+        sb.append(getPath());
         sb.append("\n");
 
         return sb.toString();

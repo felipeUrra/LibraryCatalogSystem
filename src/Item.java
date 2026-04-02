@@ -1,20 +1,24 @@
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class Item {
     private String name;
-    private ArrayList<String> authors = new ArrayList<>();
+    private List<String> authors = new ArrayList<>();
     private int publicationYear;
+    private String path;
 
     public Item() {
         name = null;
         publicationYear = 0;
+        path = null;
     }
 
-    public Item(String name, String authors, int publicationYear) {
+    public Item(String name, String authors, int publicationYear, String path) {
         this.name = name;
         splitAuthors(authors);
         this.publicationYear = publicationYear;
+        this.path = path;
     }
 
     public void splitAuthors(String s) {
@@ -35,11 +39,11 @@ public abstract class Item {
         return name;
     }
 
-    public ArrayList<String> getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(ArrayList<String> authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 
@@ -49,5 +53,13 @@ public abstract class Item {
 
     public void setPublicationYear(int publicationYear) {
         this.publicationYear = publicationYear;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

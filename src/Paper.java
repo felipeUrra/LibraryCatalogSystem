@@ -1,6 +1,6 @@
 public class Paper extends Item{
     private String journalName;
-    private float volume;
+    private int volume;
 
     public Paper() {
         super();
@@ -8,8 +8,8 @@ public class Paper extends Item{
         volume = 0;
     }
 
-    public Paper(String name , String authors, int publicationYear, String journalName, float volume) {
-        super(name, authors, publicationYear);
+    public Paper(String name , String authors, int publicationYear, String path, String journalName, int volume) {
+        super(name, authors, publicationYear, path);
         this.journalName = journalName;
         this.volume = volume;
     }
@@ -34,6 +34,9 @@ public class Paper extends Item{
         sb.append("Publication year: ");
         sb.append(getPublicationYear());
         sb.append("\n");
+        sb.append("Path: ");
+        sb.append(getPath());
+        sb.append("\n");
 
         return sb.toString();
     }
@@ -46,11 +49,11 @@ public class Paper extends Item{
         this.journalName = journalName;
     }
 
-    public float getVolume() {
+    public int getVolume() {
         return volume;
     }
 
-    public void setVolume(float volume) {
+    public void setVolume(int volume) {
         this.volume = volume;
     }
 }
