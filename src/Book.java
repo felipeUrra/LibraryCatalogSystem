@@ -8,7 +8,7 @@ public class Book extends Item{
         editionNumber = 0;
     }
 
-    public Book(String name , String authors, String editorial, int editionNumber, int publicationYear) {
+    public Book(String name , String authors, int publicationYear, String editorial, int editionNumber) {
         super(name, authors, publicationYear);
         this.editorial = editorial;
         this.editionNumber = editionNumber;
