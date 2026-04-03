@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Book extends Item{
     private String editorial;
     private int editionNumber;
@@ -8,7 +10,7 @@ public class Book extends Item{
         editionNumber = 0;
     }
 
-    public Book(String name , String authors, int publicationYear, String path, String editorial, int editionNumber) {
+    public Book(String name , List<String> authors, int publicationYear, String path, String editorial, int editionNumber) {
         super(name, authors, publicationYear, path);
         this.editorial = editorial;
         this.editionNumber = editionNumber;

@@ -14,15 +14,11 @@ public abstract class Item {
         path = null;
     }
 
-    public Item(String name, String authors, int publicationYear, String path) {
+    public Item(String name, List<String> authors, int publicationYear, String path) {
         this.name = name;
-        splitAuthors(authors);
+        this.authors = authors;
         this.publicationYear = publicationYear;
         this.path = path;
-    }
-
-    public void splitAuthors(String s) {
-        Collections.addAll(authors, s.split(";"));
     }
 
     public abstract String checkout();

@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Paper extends Item{
     private String journalName;
     private int volume;
@@ -8,7 +10,7 @@ public class Paper extends Item{
         volume = 0;
     }
 
-    public Paper(String name , String authors, int publicationYear, String path, String journalName, int volume) {
+    public Paper(String name , List<String> authors, int publicationYear, String path, String journalName, int volume) {
         super(name, authors, publicationYear, path);
         this.journalName = journalName;
         this.volume = volume;
