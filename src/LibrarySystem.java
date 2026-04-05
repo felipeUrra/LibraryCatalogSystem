@@ -22,7 +22,14 @@ public class LibrarySystem {
             case "add paper" -> askUserForPaper();
             case "remove" -> {
                 String name = askUserForName();
-                library.removeItem(name, scanner);
+                library.removeItem(gettingIndex(name));
+            }
+            case "print all" -> {
+                printAll();
+            }
+            case "print all name" -> {
+                String name = askUserForName();
+                printAllName(name);
             }
         }
     }
@@ -91,6 +98,49 @@ public class LibrarySystem {
 
     public Library getLibrary() {
         return library;
+    }
+
+    private int gettingIndex(String name) {
+        List<Item> coincidences = findCoincidences(name);
+
+        if (coincidences.isEmpty()) {
+            System.out.println("No item with that name");
+            return -1;
+        } else if (coincidences.size() == 1) {
+            return 0;
+        } else {
+            for (int i = 0; i < coincidences.size(); i++) {
+                System.out.println(i);
+                coincidences.get(i).checkout();
+            }
+
+            System.out.println("Select the item you want to remove/update (Enter number or 'c' to cancel):");
+            return scanner.nextInt();
+        }
+    }
+
+    private List<Item> findCoincidences(String name) {
+        List<Item> coincidences = new ArrayList<>();
+        for (Item item : library.getInventory()) {
+            if (item.getName().equals(name)) {
+                coincidences.add(item);
+            }
+        }
+        return coincidences;
+    }
+
+    public void printAll() {
+        for (Item item : library.getInventory()) {
+            item.checkout();
+        }
+    }
+
+    public void printAllName(String name) {
+        for (Item item : library.getInventory()) {
+            if (item.getName().equals(name)) {
+                item.checkout();
+            }
+        }
     }
 
     public void setLibrary(Library library) {

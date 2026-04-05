@@ -18,23 +18,8 @@ public class Library {
         inventory.add(item);
     }
 
-    public void removeItem(String name, Scanner scanner) {
-        List<Item> coincidences = findCoincidences(name);
-
-        if (coincidences.isEmpty()) {
-            System.out.println("No item with that name.");
-        } else if (coincidences.size() == 1) {
-            inventory.remove(coincidences.getFirst());
-        } else {
-            for (int i = 0; i < coincidences.size(); i++) {
-                System.out.println(i);
-                coincidences.get(i).checkout();
-            }
-
-            System.out.println("Select which item you want to remove (Enter number or 'c' to cancel):");
-            int input = scanner.nextInt();
-            inventory.remove(coincidences.get(input));
-        }
+    public void removeItem(int index) {
+        inventory.remove(index);
     }
 
     private List<Item> findCoincidences(String name) {
