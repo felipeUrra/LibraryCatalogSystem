@@ -10,26 +10,41 @@ public class LibrarySystem {
         this.library = library;
     }
 
-    public void start() {
-        System.out.println("Library Catalog System");
+    public boolean getCommand() {
         String choice = scanner.nextLine();
-        identifyCommand(choice);
+        return identifyCommand(choice);
     }
 
-    private void identifyCommand(String command) {
+    private boolean identifyCommand(String command) {
         switch (command) {
-            case "add book" -> askUserForBook();
-            case "add paper" -> askUserForPaper();
+            case "add book" -> {
+                askUserForBook();
+                return true;
+            }
+            case "add paper" -> {
+                askUserForPaper();
+                return true;
+            }
             case "remove" -> {
                 String name = askUserForName();
                 library.removeItem(gettingIndex(name));
+                return true;
             }
             case "print all" -> {
                 printAll();
+                return true;
             }
             case "print all name" -> {
                 String name = askUserForName();
                 printAllName(name);
+                return true;
+            }
+            case "exit" -> {
+                return false;
+            }
+            default -> {
+                System.out.println("Available commands: ....");
+                return true;
             }
         }
     }
