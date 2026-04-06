@@ -1,14 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Library {
     private List<Item> inventory = new ArrayList<>();
 
-
-    public Library() {
-        inventory = null;
-    }
+    public Library() {}
 
     public Library(List<Item> inventory) {
         this.inventory = inventory;

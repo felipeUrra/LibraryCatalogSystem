@@ -56,12 +56,14 @@ public class LibrarySystem {
 
         System.out.println("Publication year: ");
         int publicationYear = scanner.nextInt();
+        scanner.nextLine(); // flushing leftovers
 
         System.out.println("Editorial: ");
         String editorial = scanner.nextLine();
 
         System.out.println("Edition number:");
         int editionNumber = scanner.nextInt();
+        scanner.nextLine(); // flushing leftovers
 
         System.out.println("Path: ");
         String path = scanner.nextLine();
@@ -77,12 +79,14 @@ public class LibrarySystem {
 
         System.out.println("Publication year: ");
         int publicationYear = scanner.nextInt();
+        scanner.nextLine(); // flushing leftovers
 
         System.out.println("Journal name: ");
         String journalName = scanner.nextLine();
 
         System.out.println("Volume: ");
         int volume = scanner.nextInt();
+        scanner.nextLine(); // flushing leftovers
 
         System.out.println("Path: ");
         String path = scanner.nextLine();
