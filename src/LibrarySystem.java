@@ -150,14 +150,14 @@ public class LibrarySystem {
 
     public void printAll() {
         for (Item item : library.getInventory()) {
-            item.checkout();
+            System.out.println(item.checkout());
         }
     }
 
     public void printAllName(String name) {
         for (Item item : library.getInventory()) {
             if (item.getName().equals(name)) {
-                item.checkout();
+                System.out.println(item.checkout());
             }
         }
     }
