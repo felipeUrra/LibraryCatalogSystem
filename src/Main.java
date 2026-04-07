@@ -4,9 +4,12 @@ public class Main {
         LibrarySystem myLibrarySystem = new LibrarySystem(myLibrary);
 
         System.out.println("Library Catalog System");
+        myLibrarySystem.load();
 
         while (true) {
             if (!myLibrarySystem.getCommand()) break;
         }
+
+        myLibrarySystem.save();
     }
 }

@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.io.File;
+import java.io.IOException;
 
 public class LibrarySystem {
     private Library library;
@@ -54,16 +59,12 @@ public class LibrarySystem {
 
         List<String> authors = askUserForAuthors();
 
-        System.out.println("Publication year: ");
-        int publicationYear = scanner.nextInt();
-        scanner.nextLine(); // flushing leftovers
+        int publicationYear = askForInt("Publication year: ");
 
         System.out.println("Editorial: ");
         String editorial = scanner.nextLine();
 
-        System.out.println("Edition number:");
-        int editionNumber = scanner.nextInt();
-        scanner.nextLine(); // flushing leftovers
+        int editionNumber = askForInt("Edition number");
 
         System.out.println("Path: ");
         String path = scanner.nextLine();
@@ -77,16 +78,12 @@ public class LibrarySystem {
 
         List<String> authors = askUserForAuthors();
 
-        System.out.println("Publication year: ");
-        int publicationYear = scanner.nextInt();
-        scanner.nextLine(); // flushing leftovers
+        int publicationYear = askForInt("Publication year: ");
 
         System.out.println("Journal name: ");
         String journalName = scanner.nextLine();
 
-        System.out.println("Volume: ");
-        int volume = scanner.nextInt();
-        scanner.nextLine(); // flushing leftovers
+        int volume = askForInt("Volume: ");
 
         System.out.println("Path: ");
         String path = scanner.nextLine();
@@ -115,8 +112,19 @@ public class LibrarySystem {
         return list;
     }
 
-    public Library getLibrary() {
-        return library;
+    private int askForInt(String message) {
+        System.out.println(message);
+        String input = scanner.nextLine().trim();
+        if (input.isEmpty()) {
+            return 0;
+        }
+
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a number or leave blank.");
+            return 0;
+        }
     }
 
     private int gettingIndex(String name) {
@@ -160,6 +168,41 @@ public class LibrarySystem {
                 System.out.println(item.checkout());
             }
         }
+    }
+
+    public void save() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            File file = new File("library.json");
+            mapper.writeValue(file, library.getInventory());
+            System.out.println("Inventory saved successfully to library.json");
+        } catch (IOException e) {
+            System.out.println("Error saving the library" + e.getMessage());
+        }
+    }
+
+    public void load() {
+        File file = new File("library.json");
+
+        if (!file.exists()) {
+            System.out.println("No save file found. Starting with an empty library.");
+            return;
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            List<Item> loadedItems = mapper.readValue(file, new TypeReference<List<Item>>() {});
+            library.setInventory(loadedItems);
+            System.out.println("Loaded " + loadedItems.size() + " items from disk.");
+        } catch (IOException e) {
+            System.out.println("Error loading save file. Starting fresh. Error: " + e.getMessage());
+        }
+    }
+
+    public Library getLibrary() {
+        return library;
     }
 
     public void setLibrary(Library library) {
