@@ -1,5 +1,7 @@
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("book")
 public class Book extends Item{
     private String editorial;
     private int editionNumber;
@@ -41,6 +43,11 @@ public class Book extends Item{
         sb.append("\n");
 
         return sb.toString();
+    }
+
+    @Override
+    public String getType() {
+        return "book";
     }
 
     public String getEditorial() {

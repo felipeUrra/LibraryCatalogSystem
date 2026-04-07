@@ -1,8 +1,12 @@
 import java.util.List;
 import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -33,6 +37,9 @@ public abstract class Item {
     }
 
     public abstract String checkout();
+
+    @JsonProperty("type")
+    public abstract String getType();
 
     public Item returnItem() {
         return this;
