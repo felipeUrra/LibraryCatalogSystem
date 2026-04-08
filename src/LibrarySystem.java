@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Desktop;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.File;
-import java.io.IOException;
 
 public class LibrarySystem {
     private Library library;
@@ -44,11 +45,16 @@ public class LibrarySystem {
                 printAllName(name);
                 return true;
             }
+            case "open" -> {
+                String name = askUserForName();
+                open(gettingIndex(name));
+                return true;
+            }
             case "exit" -> {
                 return false;
             }
             default -> {
-                System.out.println("Available commands: ....");
+                System.out.println("Available command: \nadd book\nadd paper\nremove\nprint all\nprint all name\nopen\nexit");
                 return true;
             }
         }
@@ -131,7 +137,7 @@ public class LibrarySystem {
         List<Item> coincidences = findCoincidences(name);
 
         if (coincidences.isEmpty()) {
-            System.out.println("No item with that name");
+            System.out.println("No item with that name.\n");
             return -1;
         } else if (coincidences.size() == 1) {
             return 0;
@@ -141,7 +147,7 @@ public class LibrarySystem {
                 coincidences.get(i).checkout();
             }
 
-            System.out.println("Select the item you want to remove/update (Enter number or 'c' to cancel):");
+            System.out.println("Select the item you want to remove/open (Enter number or 'c' to cancel):");
             return scanner.nextInt();
         }
     }
@@ -167,6 +173,36 @@ public class LibrarySystem {
             if (item.getName().equals(name)) {
                 System.out.println(item.checkout());
             }
+        }
+    }
+
+    public void open(int index) {
+        Item item = library.getInventory().get(index);
+        if (item.getPath() == null || item.getPath().isEmpty()) {
+            System.out.println("No path provided for this item.");
+            return;
+        }
+
+        if (!item.getPath().endsWith(".pdf")) {
+            System.out.println("Sorry, I can only open PDF files. Provided path: " + item.getPath());
+        }
+
+        File fileToOpen = new File(item.getPath());
+        if (!fileToOpen.exists()) {
+            System.out.println("Error: Could not find the file at: " + item.getPath());
+            return;
+        }
+
+        if (!Desktop.isDesktopSupported()) {
+            System.out.println("Error: Opening files is not supported on this environment.");
+            return;
+        }
+
+        try {
+            System.out.println("Opening '" + item.getName() + "'...");
+            Desktop.getDesktop().open(fileToOpen);
+        } catch (IOException e) {
+            System.out.println("Something went wrong trying to open the file " + e.getMessage());
         }
     }
 
